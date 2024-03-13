@@ -62,7 +62,7 @@ const DeparmentCard = ({ onSubmit }) => {
       </div>
       <button
         type="submit"
-        className="py-3 px-7 bg-blue-500 text-white font-bold rounded-lg"
+        className="py-4 px-7 bg-blue-500 text-white font-bold rounded-lg"
       >
         Add Department
       </button>

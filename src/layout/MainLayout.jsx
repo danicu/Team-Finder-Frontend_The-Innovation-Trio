@@ -84,7 +84,6 @@ const Layout = () => {
 
         {/* Main Content */}
         <div className="flex-1">
-          {/* Restul conținutului, inclusiv Outlet */}
           <div className="right-section">
             <section>
               <div className="content">
