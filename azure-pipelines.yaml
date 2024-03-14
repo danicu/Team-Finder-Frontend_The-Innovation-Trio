@@ -1,0 +1,49 @@
+pool: 'default'
+
+variables:
+  node.version: '20.x'
+  projectRoot: '.'
+  
+
+jobs: 
+  - job: deploy
+    # variables:
+    #   - group: FE_VARIABLES
+    steps:
+      - task: NodeTool@0
+        displayName: 'Use Node.js $(node.version)'
+        inputs:
+          versionSpec: '$(node.version)'
+
+      - script: |
+          npm install
+        workingDirectory: $(projectRoot)
+        displayName: "Install dependencies"
+
+      # - script: |
+      #     echo "REACT_APP_BACKEND_BASE_URL=$(BACKEND_BASE_URL)" > .env
+      #   workingDirectory: $(projectRoot)
+      #   displayName: "Create env file"
+
+      - script: |
+          npm run build
+        workingDirectory: $(projectRoot)
+        displayName: "Build project"
+      
+      - task: ArchiveFiles@2
+        displayName: 'Archive files'
+        inputs:
+          rootFolderOrFile: '$(projectRoot)/dist'
+          includeRootFolder: false
+          archiveType: zip
+          archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+          replaceExistingArchive: true
+      
+      - task: AzureWebApp@1
+        displayName: 'Deploy Azure Web App'
+        inputs:
+          azureSubscription: 'the-innovation-trio-service-connection'
+          appType: 'webAppLinux'
+          appName: "atc-2024-the-innovation-trio-fe-linux-web-app"
+          package: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+          startUpCommand: 'pm2 serve /home/site/wwwroot --no-daemon --spa'
