@@ -1,10 +1,5 @@
 import React from "react"
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom"
+import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom"
 import MainLayout from "./layout/MainLayout"
 import Departments from "./pages/Departments"
 import Projects from "./pages/Projects"
