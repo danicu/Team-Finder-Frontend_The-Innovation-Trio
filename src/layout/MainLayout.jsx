@@ -11,7 +11,7 @@ import api from "../api"
 
 const navItems = [
   {
-    to: "/",
+    to: "/mypage",
     name: "MyPage",
   },
   {

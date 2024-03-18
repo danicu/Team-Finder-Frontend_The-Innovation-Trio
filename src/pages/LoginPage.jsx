@@ -1,16 +1,14 @@
 import React, { useState } from "react"
 import api from "../api"
-import { useNavigate } from "react-router-dom"
-import e from "cors"
-const LoginPage = () => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+import { useNavigate, Link } from "react-router-dom"
 
-  const navigate = useNavigate()
+const LoginPage = () => {
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   })
+  const navigate = useNavigate()
+
   const handleChange = (e) => {
     setCredentials({
       ...credentials,
@@ -27,22 +25,13 @@ const LoginPage = () => {
       localStorage.setItem("token", token)
       localStorage.setItem("refreshToken", refreshToken)
       alert("Te-ai logat cu succes!")
-      navigate("/")
-    } catch (error) {}
+
+      // Navigare către "MyPage" după autentificare
+      navigate("/mypage")
+    } catch (error) {
+      console.error(error)
+    }
   }
-  // const handleLogin = async (e) => {
-  //   try {
-  //     const response = await api.post("/auth/authenticate", {
-  //       email: email,
-  //       password: password,
-  //     })
-  //     console.log("Autentificare reușită!", response.data)
-  //     alert("Te-ai logat cu succes!")
-  //     navigate("/administration")
-  //   } catch (error) {
-  //     console.error("Eroare la autentificare:", error)
-  //   }
-  // }
 
   return (
     <div className="flex justify-center items-center h-screen">
@@ -60,39 +49,6 @@ const LoginPage = () => {
         </div>
         {/* Partea dreapta */}
         <div className="flex-1 flex justify-center items-center rounded-xl">
-          {/* <div className="w-[50%] p-8">
-            <h2 className="text-3xl font-bold mb-4">LOGIN</h2>
-            <div className="mb-4">
-              <input
-                type="text"
-                placeholder="E-mail Address"
-                className="w-[364px] h-12 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div className="mb-4">
-              <input
-                type="password"
-                placeholder="Password"
-                className="w-[364px] h-12 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            <div className="mb-4 flex items-center">
-              <input type="checkbox" id="remember" className="mr-2" />
-              <label htmlFor="remember" className="text-gray-600">
-                Remember me
-              </label>
-            </div>
-            <button
-              className="w-[364px] h-[52px] bg-purple-600 text-white font-bold rounded-lg focus:outline-none"
-              onClick={handleLogin}
-            >
-              Login Now
-            </button>
-          </div> */}
           <div className="w-[50%] p-8">
             <h2 className="text-3xl font-bold mb-4">LOGIN</h2>
             <div className="mb-4">
@@ -121,6 +77,14 @@ const LoginPage = () => {
                   Login
                 </button>
               </form>
+            </div>
+            <div>
+              <p>
+                You don't have an account?{" "}
+                <Link to="/register" className="text-blue-500">
+                  Sign Up here!
+                </Link>
+              </p>
             </div>
           </div>
         </div>

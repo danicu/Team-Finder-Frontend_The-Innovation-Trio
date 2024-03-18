@@ -1,11 +1,12 @@
 import React from "react"
 import api from "../api"
+import { useNavigate } from "react-router-dom"
 
 const SignUpPage = () => {
-  const handleSignUp = (e) => {
-    e.preventDefault()
-    console.log(e)
+  const navigate = useNavigate()
 
+  const handleSignUp = async (e) => {
+    e.preventDefault()
     const form = e.target
     const name = form["name"].value
     const email = form["email"].value
@@ -15,7 +16,7 @@ const SignUpPage = () => {
     const headquarterAddress = form["headquarterAddress"].value
 
     try {
-      api.post("/register", {
+      await api.post("/auth/register", {
         name,
         email,
         password,
@@ -23,6 +24,7 @@ const SignUpPage = () => {
         headquarterAddress,
       })
       alert("Contul a fost creat cu succes!")
+      navigate("/login") // Redirecționează către pagina de login după înregistrare cu succes
     } catch (error) {
       console.error(error)
     }
@@ -32,7 +34,6 @@ const SignUpPage = () => {
     <div className="flex justify-center items-center h-screen">
       <div className="w-[1366px] h-[768px] bg-white shadow-xl flex rounded-xl">
         {/* Partea stanga */}
-
         <form
           onSubmit={handleSignUp}
           className="flex-1 flex justify-center items-center rounded-xl"
@@ -96,12 +97,7 @@ const SignUpPage = () => {
           </div>
         </form>
         {/* Partea dreapta */}
-        <div
-          className="flex-1 bg-[#9181F4] bg-cover bg-right flex items-center justify-center rounded-xl"
-          style={{
-            backgroundImage: 'url("/path/to/image.png")',
-          }}
-        >
+        <div className="flex-1 bg-[#9181F4] bg-cover bg-right flex items-center justify-center rounded-xl">
           <div className="text-white text-center">
             <h2 className="text-3xl font-bold mb-4">Team Finder App</h2>
           </div>
