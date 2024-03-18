@@ -31,7 +31,6 @@ function App() {
               <Route path="/profile" element={<Profile />} />
             </Route>
           </Route>
-
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/employeeregister" element={<EmployeeRegister />} />
         </Routes>

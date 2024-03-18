@@ -88,6 +88,7 @@ const SignUpPage = () => {
                 className="w-[364px] h-12 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
               />
             </div>
+
             <button
               type="submit"
               className="w-[364px] h-[52px] bg-purple-600 text-white font-bold rounded-lg focus:outline-none"
