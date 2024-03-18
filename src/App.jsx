@@ -7,16 +7,18 @@ import LoginPage from "./pages/LoginPage"
 import RegisterPage from "./pages/RegisterPage"
 import EmployeeRegister from "./pages/EmployeeRegister"
 import Administration from "./pages/Administration"
-
+import Profile from "./pages/Profile"
 function App() {
   return (
     <div className="App">
       <Router>
         <Routes>
           <Route path="/" element={<MainLayout />}>
-            <Route index element={<Departments />} />
+            <Route index element={<Profile />} />
+            <Route path="/departments" element={<Departments />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/administration" element={<Administration />} />
+            <Route path="/profile" element={<Profile />} />
           </Route>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />

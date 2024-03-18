@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Link, Outlet, useLocation } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
@@ -7,9 +7,15 @@ import {
   faNewspaper,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons"
+import api from "../api"
+
 const navItems = [
   {
     to: "/",
+    name: "MyPage",
+  },
+  {
+    to: "/departments",
     name: "Departments",
     Icon: <FontAwesomeIcon icon={faHouse} />,
   },
@@ -24,8 +30,23 @@ const navItems = [
     Icon: <FontAwesomeIcon icon={faUsers} />,
   },
 ]
+
 const Layout = () => {
   const { pathname } = useLocation()
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await api.get("users/connected-user")
+        setUser(response.data)
+      } catch (error) {
+        // Handle error or redirect to login
+      }
+    }
+
+    fetchProfile()
+  }, [])
 
   return (
     <div className="flex flex-col h-screen">
@@ -51,7 +72,7 @@ const Layout = () => {
         {/* Nume Admin și imagine */}
         <div className="flex items-center">
           <img src="/" alt="Admin" className="w-8 h-8 rounded-full mr-2" />
-          <p className="text-white">Nume Admin</p>
+          <p className="text-white">{user && user.userName}</p>
         </div>
       </nav>
 

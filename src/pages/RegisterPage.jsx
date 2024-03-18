@@ -15,7 +15,7 @@ const SignUpPage = () => {
     const headquarterAddress = form["headquarterAddress"].value
 
     try {
-      api.post("/signup", {
+      api.post("/register", {
         name,
         email,
         password,

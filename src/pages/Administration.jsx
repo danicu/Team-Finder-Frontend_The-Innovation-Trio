@@ -1,8 +1,16 @@
 import React, { useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faPlus, faCopy, faUser } from "@fortawesome/free-solid-svg-icons"
+import {
+  faPlus,
+  faCopy,
+  faUser,
+  faTrashAlt,
+} from "@fortawesome/free-solid-svg-icons"
+import { faPencilAlt, faTrash } from "@fortawesome/free-solid-svg-icons"
+import axios from "axios"
+import UserTable from "./UserTable"
 import Modal from "react-modal"
-import { Center } from "@mantine/core"
+import TeamRoles from "./TeamRoles"
 
 const TableRow = ({ item, jobColors }) => (
   <tr key={item.name}>
@@ -94,81 +102,15 @@ const Administration = ({ data, jobColors }) => {
             Copy
           </button>
         </div>
-
-        {/* Delimitarea cu dungă pentru secțiunea Employees */}
-
-        <div className="mt-2">
-          <h1 className="px-2">Employees</h1>
-          <table>
-            <tbody>
-              <tr className="border-b">
-                <td className="px-2">
-                  <FontAwesomeIcon icon={faUser} className="mr-2" />
-                  Poliec Daniel
-                </td>
-                <td className="px-2">Frontend Department</td>
-                <td className="px-2">React, JavaScript, HTML5</td>
-                <td className="px-2">
-                  <button onClick={openModal}>Edit</button>
-                  <Modal
-                    style={{
-                      overlay: {
-                        position: "fixed",
-                        top: 100,
-                        left: 400,
-                        right: 10,
-                        bottom: 10,
-                        backgroundColor: "rgba(0, 0, 0, 0)",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      },
-                      content: {
-                        width: "20%",
-                        height: "20%",
-                        backgroundColor: "white",
-                        borderRadius: "8px",
-                        padding: "20px",
-                      },
-                    }}
-                    isOpen={modalIsOpen}
-                    onRequestClose={closeModal}
-                    className=""
-                  >
-                    <h2>Roles</h2>
-                    <label>
-                      <input type="checkbox" /> Organization administration
-                    </label>
-                    <br />
-                    <label>
-                      <input type="checkbox" /> Employee
-                    </label>
-                    <br />
-                    <label>
-                      <input type="checkbox" /> Department Manager
-                    </label>
-                    <br />
-                    <label>
-                      <input type="checkbox" /> Project Manager
-                    </label>
-                    <br />
-                    <button onClick={closeModal} style={{ float: "right" }}>
-                      Confirmare
-                    </button>
-                  </Modal>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div>
+          <h2>Employees:</h2>
+          <UserTable />
         </div>
       </div>
       {/* Right Side */}
-      <div className="w-full">
-        <div className="bg-gray-200 p-4 rounded-lg shadow-lg">
-          <h1>Team Roles</h1>
-          <div className="bg-yellow-200 py-3 rounded-lg shadow-lg">
-            <h1>Test</h1>
-          </div>
+      <div className="py-4 px-4">
+        <div className="bg-orange-100 p-4 rounded-lg shadow-lg">
+          <TeamRoles />
         </div>
       </div>
     </div>
